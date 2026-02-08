@@ -1,0 +1,110 @@
+/* --- VARIABLES GLOBALES --- */
+:root {
+	--bg-dark: #0f0f0f;
+	--accent: #6db33f;
+	--accent-hover: #29b797;
+	--text-main: #ffffff;
+	--text-dim: #aaaaaa;
+	--glass-bg: rgba(255, 255, 255, 0.03);
+	--glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* --- BASE --- */
+body {
+	background-color: var(--bg-dark);
+	background-image: 
+		radial-gradient(at 0% 0%, rgba(109, 179, 63, 0.15) 0px, transparent 50%),
+		radial-gradient(at 100% 100%, rgba(41, 183, 151, 0.15) 0px, transparent 50%);
+	color: var(--text-main);
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+}
+
+/* --- COMPONENTES GLASS --- */
+.testly-card {
+	background: var(--glass-bg);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+	border: 1px solid var(--glass-border);
+	border-radius: 2rem;
+	padding: 3rem;
+	width: 100%;
+	max-width: 500px; /* Tamaño ideal para registro, el login se adapta */
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.logo-text {
+	color: var(--accent);
+	font-weight: 800;
+	font-size: 1.75rem;
+	letter-spacing: -1px;
+	text-shadow: 0 0 20px rgba(109, 179, 63, 0.4);
+}
+
+/* --- FORMULARIOS --- */
+.form-label {
+	color: var(--text-dim);
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.form-control {
+	background: rgba(0, 0, 0, 0.3);
+	border: 1px solid var(--glass-border);
+	color: #fff;
+	border-radius: 0.8rem;
+	padding: 0.8rem 1rem;
+	transition: all 0.3s ease;
+}
+
+.form-control:focus {
+	background: rgba(0, 0, 0, 0.5);
+	border-color: var(--accent);
+	box-shadow: 0 0 15px rgba(109, 179, 63, 0.2);
+	color: #fff;
+	outline: none;
+}
+
+/* --- BOTONES --- */
+/* Clase única para botones con degradado */
+.btn-testly {
+	background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+	color: #000 !important; /* Texto negro para contraste */
+	font-weight: 800;
+	border: none;
+	border-radius: 0.8rem;
+	padding: 1rem;
+	width: 100%;
+	transition: transform 0.2s, box-shadow 0.3s ease;
+	cursor: pointer;
+}
+
+.btn-testly:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 20px rgba(109, 179, 63, 0.3);
+}
+
+/* --- ENLACES Y OTROS --- */
+.footer-link {
+	color: var(--accent);
+	text-decoration: none;
+	font-weight: 700;
+	transition: color 0.3s;
+}
+
+.footer-link:hover {
+	color: var(--accent-hover);
+	text-decoration: underline;
+}
+
+hr {
+	border-color: var(--glass-border);
+	margin: 2rem 0;
+	opacity: 0.5;
+}

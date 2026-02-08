@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Testly | 404</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<style>
+/* --- REUTILIZACIÓN DE VARIABLES --- */
+:root {
+	--bg-dark: #0f0f0f;
+	--accent: #6db33f;
+	--accent-hover: #29b797;
+	--text-main: #ffffff;
+	--text-dim: #aaaaaa;
+	--glass-bg: rgba(255, 255, 255, 0.03);
+	--glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+	background-color: var(--bg-dark);
+	background-image: radial-gradient(at 50% 50%, rgba(109, 179, 63, 0.1)
+		0px, transparent 60%);
+	color: var(--text-main);
+	font-family: "Inter", system-ui, sans-serif;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	overflow: hidden;
+}
+
+.error-card {
+	background: var(--glass-bg);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid var(--glass-border);
+	border-radius: 2rem;
+	padding: 4rem 2rem;
+	text-align: center;
+	max-width: 500px;
+	width: 90%;
+	box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+	animation: float 6s ease-in-out infinite;
+}
+
+/* TÍTULO GIGANTE CON GLOW */
+.error-code {
+	font-size: 8rem;
+	font-weight: 900;
+	line-height: 1;
+	margin-bottom: 1rem;
+	color: transparent;
+	-webkit-text-stroke: 2px var(--accent);
+	text-shadow: 0 0 30px rgba(109, 179, 63, 0.5);
+	position: relative;
+}
+
+.error-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	color: var(--text-main);
+}
+
+.error-desc {
+	color: var(--text-dim);
+	margin-bottom: 2rem;
+	font-size: 0.95rem;
+}
+
+.btn-home {
+	background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+	color: #000;
+	font-weight: 800;
+	padding: 1rem 2.5rem;
+	border-radius: 50px;
+	text-decoration: none;
+	transition: all 0.3s;
+	display: inline-block;
+	box-shadow: 0 10px 20px rgba(109, 179, 63, 0.2);
+}
+
+.btn-home:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 15px 30px rgba(109, 179, 63, 0.4);
+	color: #000;
+}
+
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+</style>
+</head>
+<body>
+	<div class="error-card">
+		<div class="error-code">404</div>
+		<div class="error-title">Respuesta Incorrecta</div>
+		<p class="error-desc">
+			Parece que te has salido del tablero. <br /> Esta página no existe o
+			ha sido eliminada.
+		</p>
+
+		<a th:href="@{/}" class="btn-home">Volver</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head
+	th:replace="~{fragments :: head(title='Testly | Desafía tu mente')}"></head>
+<body>
+
+	<!-- HEADER -->
+	<header th:replace="~{fragments :: header}"></header>
+
+	<!-- HERO -->
+	<section class="hero container text-center">
+		<h1>
+			Pon a prueba tu <br> <span class="highlight">Conocimiento
+				Real</span>
+		</h1>
+		<p>Miles de preguntas. Compite con amigos en tiempo real. Sube de
+			nivel y demuestra que eres el número uno.</p>
+
+		<div sec:authorize="isAnonymous()">
+			<a href="http://localhost:5173/register" class="btn btn-primary px-5 py-3">EMPEZAR
+				AHORA</a>
+		</div>
+
+		<div sec:authorize="isAuthenticated()"
+			class="d-flex justify-content-center gap-3">
+			<a href="http://localhost:5173/" class="btn btn-primary px-5 py-3">Entrar
+				al Juego</a> <a th:href="@{/api/questions}"
+				class="btn btn-primary px-5 py-3">API</a>
+		</div>
+	</section>
+
+	<!-- FEATURES -->
+	<section class="features container">
+		<div class="row g-4">
+			<div class="col-md-4">
+				<div class="feature-card h-100">
+					<div class="icon-box">
+						<span class="material-symbols-outlined">bolt</span>
+					</div>
+					<h3>Partidas Rápidas</h3>
+					<p>Sin esperas. Encuentra un oponente o juega solo en menos de
+						3 segundos.</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="feature-card h-100">
+					<div class="icon-box">
+						<span class="material-symbols-outlined">school</span>
+					</div>
+					<h3>Temáticas Variadas</h3>
+					<p>Desde Historia y Ciencia hasta Cine y Cultura Pop.</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="feature-card h-100">
+					<div class="icon-box">
+						<span class="material-symbols-outlined">emoji_events</span>
+					</div>
+					<h3>Rankings Globales</h3>
+					<p>Gana puntos, escala en la tabla y consigue insignias únicas.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- FOOTER -->
+	<div th:replace="~{fragments :: footer}"></div>
+
+	<!-- Bootstrap JS -->
+	<script th:src="@{/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Testly | 500 Error</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+
+<style>
+:root {
+	--bg-dark: #0f0f0f;
+	--accent: #ff5252; /* CAMBIO: Rojo suave para error crítico */
+	--accent-hover: #ff1744;
+	--text-main: #ffffff;
+	--text-dim: #aaaaaa;
+	--glass-bg: rgba(255, 255, 255, 0.03);
+	--glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+	background-color: var(--bg-dark);
+	/* Gradiente rojo para alertar sutilmente del error */
+	background-image: radial-gradient(at 50% 50%, rgba(255, 82, 82, 0.1) 0px,
+		transparent 60%);
+	color: var(--text-main);
+	font-family: "Inter", system-ui, sans-serif;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0;
+	overflow: hidden;
+}
+
+.error-card {
+	background: var(--glass-bg);
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 1px solid var(--glass-border);
+	border-radius: 2rem;
+	padding: 4rem 2rem;
+	text-align: center;
+	max-width: 500px;
+	width: 90%;
+	box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.error-code {
+	font-size: 8rem;
+	font-weight: 900;
+	line-height: 1;
+	margin-bottom: 1rem;
+	color: transparent;
+	-webkit-text-stroke: 2px var(--accent);
+	text-shadow: 0 0 30px rgba(255, 82, 82, 0.4);
+}
+
+.error-title {
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	color: var(--text-main);
+}
+
+.error-desc {
+	color: var(--text-dim);
+	margin-bottom: 2rem;
+	font-size: 0.95rem;
+}
+
+.btn-retry {
+	background: transparent;
+	border: 2px solid var(--accent);
+	color: var(--accent);
+	font-weight: 800;
+	padding: 0.8rem 2.5rem;
+	border-radius: 50px;
+	text-decoration: none;
+	transition: all 0.3s;
+	display: inline-block;
+}
+
+.btn-retry:hover {
+	background-color: var(--accent);
+	color: #fff;
+	box-shadow: 0 0 20px rgba(255, 82, 82, 0.4);
+}
+</style>
+</head>
+<body>
+	<div class="error-card">
+		<div class="error-code">500</div>
+		<div class="error-title">Fallo del Sistema</div>
+		<p class="error-desc">
+			Algo ha salido mal en nuestros servidores. <br /> No es culpa tuya.
+			Intenta recargar en unos segundos.
+		</p>
+
+		<a href="javascript:location.reload()" class="btn-retry">REINTENTAR</a>
+
+		<div style="margin-top: 20px">
+			<a th:href="@{/}"
+				style="color: #666; text-decoration: none; font-size: 0.8rem">Volver
+				al inicio</a>
+		</div>
+	</div>
+</body>
+</html>

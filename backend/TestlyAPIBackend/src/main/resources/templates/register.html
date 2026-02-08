@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="~{fragments :: head('Testly | Desafía tu mente')}"></head>
+<head>
+<link rel="stylesheet" th:href="@{/css/register_and_login_styles.css}">
+</head>
+<body>
+
+	<div class="container d-flex justify-content-center">
+		<div class="testly-card">
+
+			<div class="text-center mb-5">
+				<div class="logo-text">Testly</div>
+				<h2 class="fw-bold mt-2">Crea tu cuenta</h2>
+				<p class="text-secondary small">Únete a la nueva era de los
+					tests.</p>
+			</div>
+
+			<form th:action="@{/register}" method="post">
+				<div class="mb-4">
+					<label class="form-label">Usuario</label> <input type="text"
+						name="username" class="form-control" placeholder="tu usuario"
+						required>
+				</div>
+
+				<div class="mb-2">
+					<label class="form-label">Contraseña</label> <input type="password"
+						name="password" class="form-control" placeholder="••••••••"
+						required>
+				</div>
+
+				<button type="submit" class="btn-testly">Registrarse</button>
+
+				<div th:if="${param.error}" class="alert alert-danger mt-3">
+					El usuario ya existe.</div>
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>

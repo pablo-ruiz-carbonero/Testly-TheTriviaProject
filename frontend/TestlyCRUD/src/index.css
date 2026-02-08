@@ -1,0 +1,253 @@
+/* GLOBAL STYLES - TESTLY */
+
+/* 1. FONT IMPORTS */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap");
+
+/* 2. CSS VARIABLES */
+:root {
+  /* Colors */
+  --bg-dark: #161616;
+  --bg-card: #1f1f1f;
+  --accent: #6db33f;
+  --accent-hover: #29b797;
+  --accent-rgb: 109, 179, 63;
+  --text-main: #ffffff;
+  --text-dim: #aaaaaa;
+  --border-color: #333333;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.4s ease;
+}
+
+/* 3. BASE RESET & GLOBAL STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(109, 179, 63, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(41, 183, 151, 0.15) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding-top: 70px;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-base);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: all var(--transition-base);
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* 4. HERO SECTION */
+.hero {
+  padding: 100px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-md);
+}
+
+.hero .highlight {
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 800;
+}
+
+.hero p {
+  color: var(--text-dim);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  margin-bottom: var(--spacing-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 5. FEATURES GRID */
+.features-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px var(--spacing-xl) 20px;
+}
+
+.feature-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  transition: all var(--transition-base);
+}
+
+.feature-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-main);
+}
+
+.feature-card p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.icon-box {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(109, 179, 63, 0.15);
+  color: var(--accent);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+/* 6. FOOTER */
+footer {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.875rem;
+  margin-top: auto;
+  background-color: rgba(22, 22, 22, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+footer p {
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+}
+
+footer .mt-2 {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+footer a {
+  color: var(--text-dim);
+  transition: color var(--transition-base);
+}
+
+footer a:hover {
+  color: var(--accent);
+}
+
+/* 7. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .hero {
+    padding: 60px 20px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .features-container {
+    grid-template-columns: 1fr;
+    padding: 0 15px var(--spacing-lg) 15px;
+  }
+
+  footer {
+    padding: 40px 15px;
+  }
+
+  footer .mt-2 {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 40px 15px;
+  }
+
+  .feature-card {
+    padding: 20px;
+  }
+}

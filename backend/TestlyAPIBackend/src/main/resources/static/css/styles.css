@@ -1,0 +1,195 @@
+:root {
+	--bg-dark: #161616;
+	--bg-card: #1f1f1f;
+	--accent: #6db33f;
+	--accent-hover: #29b797;
+	--text-main: #ffffff;
+	--text-dim: #aaaaaa;
+	--border-color: #333333;
+}
+
+/* Base */
+body {
+	background-color: var(--bg-dark);
+	color: var(--text-main);
+	font-family: "Inter", sans-serif;
+	line-height: 1.6;
+	padding-top: 90px; /* navbar fixed */
+}
+
+h1, h2, h3, .logo {
+	font-family: "Montserrat", sans-serif;
+}
+
+a {
+	text-decoration: none;
+	color: var(--text-main);
+}
+
+span {
+	color: var(--text-main);
+}
+
+/* Navbar */
+.navbar {
+	background-color: rgba(22, 22, 22, 0.95);
+	backdrop-filter: blur(10px);
+	border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+	font-weight: 800;
+	letter-spacing: -1px;
+}
+
+/* Buttons */
+.btn-primary {
+	background-color: var(--accent);
+	border: none;
+	color: #000;
+}
+
+.btn-primary:hover {
+	background-color: var(--accent-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+}
+
+.btn-ghost {
+	background: transparent;
+	color: var(--text-dim);
+}
+
+.btn-ghost:hover {
+	color: var(--text-main);
+}
+
+/* Hero */
+.hero {
+	padding: 120px 20px;
+	max-width: 800px;
+}
+
+.hero h1 {
+	font-size: 48px;
+	line-height: 1.1;
+}
+
+.highlight {
+	background: linear-gradient(90deg, var(--accent), #fff);
+	-webkit-background-clip: text;
+	color: transparent;
+}
+
+.hero p {
+	color: var(--text-dim);
+	font-size: 18px;
+}
+
+/* Features */
+.feature-card {
+	background-color: var(--bg-card);
+	border: 1px solid var(--border-color);
+	border-radius: 12px;
+	padding: 30px;
+	transition: 0.3s;
+}
+
+.feature-card:hover {
+	border-color: var(--accent);
+	transform: translateY(-5px);
+}
+
+.icon-box {
+	width: 50px;
+	height: 50px;
+	background-color: rgba(0, 229, 255, 0.1);
+	color: var(--accent);
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+	text-align: center;
+	padding: 50px 20px;
+	color: var(--text-dim);
+	border-top: 1px solid var(--border-color);
+	font-size: 13px;
+	margin-top: 80px;
+}
+
+/* --- ESTILO BOTÓN PERFIL --- */
+.btn-profile {
+	background: var(--bg-card);
+	border: 1px solid var(--border-color);
+	color: var(--text-main);
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+}
+
+.btn-profile:hover {
+	border-color: var(--accent);
+	color: var(--accent);
+	background: var(--bg-dark);
+}
+
+/* Quitar la flechita de Bootstrap */
+.btn-profile::after {
+	display: none;
+}
+
+/* --- DROPDOWN DARK THEME --- */
+.dropdown-menu {
+	background-color: var(--bg-card) !important;
+	border: 1px solid var(--border-color) !important;
+	border-radius: 12px;
+	padding: 8px;
+	min-width: 200px;
+}
+
+.dropdown-item {
+	color: var(--text-main) !important;
+	border-radius: 8px;
+	padding: 10px 15px;
+	transition: 0.2s;
+}
+
+.dropdown-item .material-symbols-outlined {
+	font-size: 20px;
+}
+
+.dropdown-item:hover {
+	background-color: var(--bg-dark) !important;
+	color: var(--accent) !important;
+}
+
+.dropdown-divider {
+	border-top: 1px solid var(--border-color);
+}
+
+.text-accent {
+	color: var(--accent);
+}
+
+.text-dim {
+	color: var(--text-dim);
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media ( max-width : 768px) {
+	.hero h1 {
+		font-size: 36px;
+	}
+}

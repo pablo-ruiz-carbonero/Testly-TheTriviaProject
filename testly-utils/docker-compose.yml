@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.1
+    container_name: testly-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: testly_users
+      MYSQL_USER: testly
+      MYSQL_PASSWORD: testly123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    command: --default-authentication-plugin=mysql_native_password
+
+  mongo:
+    image: mongo:6.0
+    container_name: testly-mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: testly_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - ./mongo-init:/docker-entrypoint-initdb.d
+
+volumes:
+  mysql-data:
+  mongo-data:
+

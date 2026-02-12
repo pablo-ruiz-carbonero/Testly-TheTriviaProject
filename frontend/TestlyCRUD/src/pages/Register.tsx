@@ -38,21 +38,17 @@ export default function Register() {
       const response = await register({ username, password });
 
       if (response.success) {
-        // Registro exitoso - redirigir al login
         alert("¡Registro exitoso! Ahora puedes iniciar sesión.");
         navigate("/login");
-      } else {
-        setError(response.message || "Error al registrarse");
       }
     } catch (err: any) {
-      console.error("Register error:", err);
-
-      if (err.response?.status === 409) {
-        setError("El usuario ya existe");
-      } else if (err.response?.data?.message) {
-        setError(err.response.data.message);
+      if (
+        err.response?.status === 409 ||
+        err.response?.data?.message?.includes("duplicate")
+      ) {
+        setError("Ese nombre de usuario ya está en uso.");
       } else {
-        setError("Error de conexión. Verifica que el servidor esté corriendo.");
+        setError(err.response?.data?.message || "Error al crear la cuenta.");
       }
     } finally {
       setLoading(false);

@@ -1,14 +1,14 @@
-// src/api/api.ts
 import axios from "axios";
+
 const api = axios.create({
+  baseURL: "http://localhost:8081", // 🔥 ESTA ES LA CLAVE
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
+  withCredentials: true, // ✔️ sesión JSESSIONID
 });
 
-// Interceptor para loggear errores
 api.interceptors.response.use(
   (res) => res,
   (err) => {

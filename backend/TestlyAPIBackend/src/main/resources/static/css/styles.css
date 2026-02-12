@@ -64,6 +64,11 @@ span {
 	color: var(--text-main);
 }
 
+.btn-documen{
+	color: var(--accent);
+	background: transparent;
+}
+
 /* Hero */
 .hero {
 	padding: 120px 20px;

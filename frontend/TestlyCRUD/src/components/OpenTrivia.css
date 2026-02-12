@@ -1,0 +1,207 @@
+/* --- ARCADE WRAPPER (Integrado con Testly) --- */
+.arcade-wrapper {
+  min-height: calc(100vh - 70px); /* Ajuste por el padding-top del body */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  color: var(--text-main);
+}
+
+/* --- PANEL DE CRISTAL (Siguiendo la estética Testly) --- */
+.arcade-glass-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  animation: fadeIn var(--transition-base);
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- TÍTULOS Y TEXTOS --- */
+.arcade-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* El degradado ahora usa tu verde corporativo */
+.text-gradient {
+  background: linear-gradient(90deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.arcade-subtitle {
+  color: var(--text-dim);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* --- BOTONES Y ACCIONES --- */
+.arcade-difficulty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.arcade-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.arcade-btn:hover {
+  border-color: var(--accent);
+  background: rgba(109, 179, 63, 0.05);
+  transform: translateY(-3px);
+}
+
+/* Variantes sutiles con tu paleta */
+.diff-easy:hover {
+  color: var(--accent);
+}
+.diff-medium:hover {
+  color: #facc15;
+} /* Amarillo para contraste */
+.diff-hard:hover {
+  color: #ef4444;
+} /* Rojo para peligro */
+
+/* --- HUD (Estado del Juego) --- */
+.arcade-hud {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 700px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.hud-item {
+  background: var(--bg-card);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-family: "Montserrat", sans-serif;
+}
+
+.hud-item .label {
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin-right: 10px;
+}
+
+.hud-item .value {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* --- LA PREGUNTA --- */
+.arcade-badge {
+  display: inline-block;
+  background: rgba(109, 179, 63, 0.1);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  border: 1px solid rgba(109, 179, 63, 0.2);
+}
+
+.arcade-question {
+  font-family: "Inter", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* --- OPCIONES DE RESPUESTA --- */
+.arcade-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.arcade-option {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: all var(--transition-fast);
+}
+
+.arcade-option:hover {
+  border-color: var(--accent);
+  background: rgba(109, 179, 63, 0.1);
+  padding-left: var(--spacing-lg); /* Efecto de desplazamiento */
+}
+
+.opt-letter {
+  color: var(--accent);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* --- RESULTADOS --- */
+.arcade-score-circle {
+  border: 4px solid var(--accent);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(109, 179, 63, 0.05);
+  box-shadow: 0 0 20px rgba(109, 179, 63, 0.15);
+}
+
+.score-value {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 600px) {
+  .arcade-options-grid {
+    grid-template-columns: 1fr;
+  }
+  .arcade-glass-panel {
+    padding: var(--spacing-md);
+  }
+}

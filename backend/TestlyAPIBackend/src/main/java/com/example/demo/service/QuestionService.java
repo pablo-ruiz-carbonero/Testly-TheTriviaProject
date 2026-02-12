@@ -1,115 +1,90 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.QuestionDTO;
 import com.example.demo.model.document.Question;
 import com.example.demo.model.document.Question.QuestionType;
 import com.example.demo.repository.mongo.QuestionRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
+/**
+ * Servicio para gestionar las preguntas de quiz. Proporciona operaciones CRUD y
+ * búsqueda avanzada, ahora con logs.
+ */
 @Service
 public class QuestionService {
 
-	@Autowired
-	private QuestionRepository questionRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
 
-	private final int PAGE_SIZE = 5; // Requisito: 5 por página
+    @Autowired
+    private LogService logService;
 
-	// Obtener todas las preguntas paginadas
-	public Page<Question> getAllQuestions(int page) {
-		Pageable pageable = PageRequest.of(page, PAGE_SIZE);
-		return questionRepository.findAll(pageable);
-	}
+    private static final int PAGE_SIZE = 5;
 
-	// Obtener pregunta por ID
-	public Optional<Question> getQuestionById(String id) {
-		return questionRepository.findById(id);
-	}
+    // ==================== CRUD ====================
 
-	// Guardar una nueva pregunta
-	public Question saveQuestion(Question question) {
-		return questionRepository.save(question);
-	}
+    public Page<Question> getAllQuestionsPaged(int page) {
+        logService.log("SYSTEM", "LIST_QUESTIONS", "Listado de preguntas en la página " + page, "INFO");
+        return questionRepository.findAll(PageRequest.of(page, PAGE_SIZE));
+    }
 
-	// Actualizar pregunta existente
-	public Question updateQuestion(String id, Question updatedQuestion) {
-		if (questionRepository.existsById(id)) {
-			updatedQuestion.setId(id);
-			return questionRepository.save(updatedQuestion);
-		}
-		throw new RuntimeException("Pregunta no encontrada con id: " + id);
-	}
+    public Optional<Question> getQuestionById(String id) {
+        Optional<Question> question = questionRepository.findById(id);
+        question.ifPresent(q -> logService.log("SYSTEM", "VIEW_QUESTION", "Visualizó la pregunta: " + q.getQuestion(), "INFO"));
+        return question;
+    }
 
-	// Eliminar pregunta por ID
-	public void deleteQuestion(String id) {
-		questionRepository.deleteById(id);
-	}
+    public Question saveQuestion(Question question) {
+        Question saved = questionRepository.save(question);
+        logService.log("SYSTEM", "CREATE_QUESTION", "Creada la pregunta: " + saved.getQuestion(), "INFO");
+        return saved;
+    }
 
-	// Buscar por categoría (Paginado)
-	public Page<Question> getQuestionsByCategory(String category, int page) {
-		Pageable pageable = PageRequest.of(page, PAGE_SIZE);
-		return questionRepository.findByCategory(category, pageable);
-	}
+    public Question updateQuestion(String id, Question updated) {
+        Question existing = questionRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Question not found"));
 
-	// Buscar por dificultad (Paginado)
-	public Page<Question> getQuestionsByDifficulty(int difficulty, int page) {
-		Pageable pageable = PageRequest.of(page, PAGE_SIZE);
-		return questionRepository.findByDifficulty(difficulty, pageable);
-	}
+        existing.setQuestion(updated.getQuestion());
+        existing.setType(updated.getType());
+        existing.setOptions(updated.getOptions());
+        existing.setAnswer(updated.getAnswer());
+        existing.setCategory(updated.getCategory());
+        existing.setDifficulty(updated.getDifficulty());
+        existing.setExplanation(updated.getExplanation());
+        existing.setActive(updated.isActive());
 
-	// Buscar por tipo (Paginado)
-	public Page<Question> getQuestionsByType(QuestionType type, int page) {
-		Pageable pageable = PageRequest.of(page, PAGE_SIZE);
-		return questionRepository.findByType(type, pageable);
-	}
+        Question saved = questionRepository.save(existing);
+        logService.log("SYSTEM", "UPDATE_QUESTION", "Actualizada la pregunta: " + saved.getQuestion(), "INFO");
+        return saved;
+    }
 
-	// Buscar por categoría y dificultad (Paginado)
-	public Page<Question> getQuestionsByCategoryAndDifficulty(String category, int difficulty, int page) {
-		Pageable pageable = PageRequest.of(page, PAGE_SIZE);
-		return questionRepository.findByCategoryAndDifficulty(category, difficulty, pageable);
-	}
+    public void deleteQuestion(String id) {
+        Optional<Question> question = questionRepository.findById(id);
+        question.ifPresent(q -> logService.log("SYSTEM", "DELETE_QUESTION", "Eliminada la pregunta: " + q.getQuestion(), "WARNING"));
+        questionRepository.deleteById(id);
+    }
 
-	// Obtener preguntas aleatorias de una categoría (Convertido a Page para consistencia)
-	public Page<Question> getRandomQuestionsByCategory(String category, int count) {
-		List<Question> questions = questionRepository.findByCategory(category);
-		Collections.shuffle(questions);
-		List<Question> subList = questions.subList(0, Math.min(count, questions.size()));
-		// Envolvemos la lista en un objeto Page
-		return new PageImpl<>(subList, PageRequest.of(0, count), questions.size());
-	}
+    // ==================== FILTRADO GENERAL ====================
 
-	// Obtener preguntas aleatorias con dificultad específica (Convertido a Page)
-	public Page<Question> getRandomQuestionsByDifficulty(int difficulty, int count) {
-		List<Question> questions = questionRepository.findByDifficulty(difficulty);
-		Collections.shuffle(questions);
-		List<Question> subList = questions.subList(0, Math.min(count, questions.size()));
-		return new PageImpl<>(subList, PageRequest.of(0, count), questions.size());
-	}
+    public Page<Question> getFilteredQuestions(
+            QuestionType type,
+            String search,
+            String category,
+            Pageable pageable) {
 
-	// Guardar múltiples preguntas
-	public List<Question> saveAllQuestions(List<Question> questions) {
-		return questionRepository.saveAll(questions);
-	}
-	
-	public Page<Question> getFilteredQuestions(Question.QuestionType type, String search, String category, Pageable pageable) {
-	    // Si la categoría es "Todas" o nula, mandamos un String vacío
-	    // En Mongo, "Containing" con un String vacío coincide con todo (no filtra)
-	    String categoryParam = (category == null || category.equalsIgnoreCase("Todas")) ? "" : category;
-	    String searchParam = (search == null) ? "" : search;
-
-	    return questionRepository.findByTypeAndQuestionContainingIgnoreCaseAndCategoryContaining(
-	        type, 
-	        searchParam, 
-	        categoryParam, 
-	        pageable
-	    );
-	}
+        Page<Question> result = questionRepository.findFiltered(
+                type,
+                search == null ? "" : search,
+                category == null ? "" : category,
+                pageable
+        );
+        logService.log("SYSTEM", "FILTER_QUESTIONS", "Filtrado de preguntas con search='" + search + "', category='" + category + "'", "INFO");
+        return result;
+    }
 }

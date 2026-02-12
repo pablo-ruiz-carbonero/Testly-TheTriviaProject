@@ -1,6 +1,6 @@
-import TrueFalseForm from "../components/questions-user/TrueFalseForm";
-import SingleChoiceForm from "../components/questions-user/SingleChoiceForm";
-import MultipleChoiceForm from "../components/questions-user/MultipleChoiceForm";
+import TrueFalseForm from "../components/questions-admin/TrueFalseForm";
+import SingleChoiceForm from "../components/questions-admin/SingleChoiceForm";
+import MultipleChoiceForm from "../components/questions-admin/MultipleChoiceForm";
 import { useState } from "react";
 
 interface QuestionsPageProps {

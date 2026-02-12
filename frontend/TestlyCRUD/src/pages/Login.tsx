@@ -23,13 +23,23 @@ export default function Login({ onLoginSuccess }: LoginProps) {
     try {
       const response = await login({ username, password });
 
+      // Si tu API devuelve un 200 OK con success: true
       if (response.success) {
         await onLoginSuccess();
         navigate("/");
       } else {
-        setError(response.message || "Error al iniciar sesión");
+        setError(response.message || "Credenciales incorrectas");
       }
     } catch (err: any) {
+      console.error("Login error:", err);
+      // CAPTURAR ERRORES DE AXIOS
+      if (err.response?.status === 401) {
+        setError("Usuario o contraseña incorrectos");
+      } else if (err.response?.status === 403) {
+        setError("No tienes permiso para acceder");
+      } else {
+        setError("No se pudo conectar con el servidor. Inténtalo más tarde.");
+      }
     } finally {
       setLoading(false);
     }

@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend.Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://<testly_mysql>:3306/testly
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: example
+    depends_on:
+      - backend
+      # Aquí no listamos DB porque ya está fuera
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_API_URL: http://localhost:8081
+    depends_on:
+      - backend
+
+  mobile:
+    build:
+      context: .
+      dockerfile: mobile.Dockerfile
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19002:19002"
+    environment:
+      REACT_NATIVE_API_URL: http://localhost:8082
+    depends_on:
+      - backend
+
